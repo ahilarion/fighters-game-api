@@ -8,13 +8,13 @@ Route::prefix('auth')->group(function () {
     Route::post('register', [AuthController::class, 'register']);
     Route::post('login', [AuthController::class, 'login']);
 
-    Route::middleware('authenticated')->group(function () {
+    Route::middleware('auth:sanctum')->group(function () {
         Route::post('logout', [AuthController::class, 'logout']);
         Route::post('me', [AuthController::class, 'me']);
     });
 });
 
-Route::prefix('character')->middleware('authenticated')->group(function () {
+Route::prefix('character')->middleware('auth:sanctum')->group(function () {
     Route::get('list', [CharacterController::class, 'index']);
     Route::get('show/{uuid}', [CharacterController::class, 'show'])->where('uuid', '[0-9a-f-]+');
 

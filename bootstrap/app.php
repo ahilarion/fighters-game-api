@@ -17,18 +17,9 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        $middleware->alias([
-            'authenticated' => Authenticated::class,
-        ]);
+
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (UserNotAuthenticatedException $exception) {
-            return response([
-                'success' => false,
-                'message' => 'User not authenticated'
-            ], Response::HTTP_UNAUTHORIZED);
-        });
-
         $exceptions->render(function (NotFoundHttpException $exception) {
             return response([
                 'success' => false,
