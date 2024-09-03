@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('abilities', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->integer('attack')->default(0);
+            $table->integer('health')->default(0);
             $table->integer('defense')->default(0);
             $table->integer('dodge')->default(0);
             $table->integer('strength')->default(0);
