@@ -16,7 +16,19 @@ class Character extends Model
     use HasFactory, HasUuids;
 
     protected $fillable = [
-        'name'
+        'name',
+        'level',
+        'experience',
+        'attack',
+        'defense',
+        'dodge',
+        'strength',
+        'dexterity',
+        'constitution',
+        'intelligence',
+        'user_id',
+        'class_id',
+        'ability_id',
     ];
 
     public function user(): BelongsTo
