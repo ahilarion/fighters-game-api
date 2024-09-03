@@ -8,7 +8,7 @@ class UserTransformer extends TransformerAbstract
     public function transform($character): array
     {
         return [
-            'id' => $character->uuid,
+            'id' => $character->id,
             'username' => $character->username,
         ];
     }
