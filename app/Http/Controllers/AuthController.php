@@ -2,35 +2,57 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegisterRequest;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class AuthController extends Controller
 {
-    public function register(Request $request)
+    public function register(RegisterRequest $request)
     {
-        return response()->json([
-            'message' => 'Register function is called'
+        $user = User::create([
+            'username' => $request->username,
+            'password' => bcrypt($request->password),
+        ]);
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        return response([
+            'token' => $token,
+            'user' => $user,
         ]);
     }
 
-    public function login(Request $request)
+    public function login(LoginRequest $request)
     {
-        return response()->json([
-            'message' => 'Login function is called'
+        if (!auth()->attempt($request->only('username', 'password'))) {
+            return response([
+                'error' => 'Invalid credentials',
+            ], 401);
+        }
+
+        $user = auth()->user();
+
+        $token = $user->createToken('token')->plainTextToken;
+
+        return response([
+            'token' => $token,
+            'user' => $user,
         ]);
     }
 
     public function logout(Request $request)
     {
-        return response()->json([
-            'message' => 'Logout function is called'
+        auth()->user()->tokens()->delete();
+
+        return response([
+            'message' => 'Logged out',
         ]);
     }
 
     public function me(Request $request)
     {
-        return response()->json([
-            'message' => 'Me function is called'
-        ]);
+        return response(auth()->user());
     }
 }
