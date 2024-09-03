@@ -45,6 +45,13 @@ class CharacterController extends Controller
     {
         $user = auth()->user();
 
+        if (!$user) {
+            return response([
+                'success' => false,
+                'message' => 'User not found',
+            ], 404);
+        }
+
         $class = Classes::where('name', $request->class)->first();
 
         if (!$class) {
@@ -55,13 +62,13 @@ class CharacterController extends Controller
         }
 
         $abilities = Abilitie::create([
-            'attack' => rand(0, $class->default_attack),
-            'defense' => rand(0, $class->default_defense),
-            'dodge' => rand(0, $class->default_dodge),
-            'strength' => rand(0, $class->default_strength),
-            'dexterity' => rand(0, $class->default_dexterity),
-            'constitution' => rand(0, $class->default_constitution),
-            'intelligence' => rand(0, $class->default_intelligence),
+            'attack' => rand(1, $class->default_attack),
+            'defense' => rand(1, $class->default_defense),
+            'dodge' => rand(1, $class->default_dodge),
+            'strength' => rand(1, $class->default_strength),
+            'dexterity' => rand(1, $class->default_dexterity),
+            'constitution' => rand(1, $class->default_constitution),
+            'intelligence' => rand(1, $class->default_intelligence),
         ]);
 
         $character = Character::create([
