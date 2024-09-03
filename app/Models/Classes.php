@@ -9,6 +9,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 /**
  * @method static where(string $string, mixed $class)
+ * @method static create(array $array)
  */
 class Classes extends Model
 {
