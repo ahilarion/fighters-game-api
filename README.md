@@ -59,6 +59,10 @@ Pour installer et configurer l'API en local, suivez ces étapes :
 
    L'API sera disponible à l'adresse [http://localhost:8000](http://localhost:8000).
 
+## Diagramme de Base de Données
+
+Pour visualiser le schéma de la base de données, veuillez consulter le diagramme suivant : [Diagramme de Base de Données](https://dbdiagram.io/d/Fighters-Game-66d6b7b8eef7e08f0e825fa9)
+
 ## Documentation de l'API
 
 Pour tester l'API, vous pouvez utiliser l'URL suivante : [https://fighters-game-api.luwa.fr/api](https://fighters-game-api.luwa.fr/api)
