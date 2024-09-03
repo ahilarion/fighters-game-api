@@ -5,7 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
-use Illuminate\Http\Request;
+use App\Transformers\UserTransformer;
 use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
@@ -23,7 +23,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'User created and logged in',
             'token' => $token,
-            'user' => $user,
+            'user' => fractal()->item($user)->transformWith(new UserTransformer())->toArray(),
         ]);
     }
 
@@ -44,7 +44,7 @@ class AuthController extends Controller
             'success' => true,
             'message' => 'Logged in',
             'token' => $token,
-            'user' => $user,
+            'user' => fractal()->item($user)->transformWith(new UserTransformer())->toArray(),
         ]);
     }
 
@@ -65,7 +65,7 @@ class AuthController extends Controller
         return response([
             'success' => true,
             'message' => 'User data',
-            'user' => $user,
+            'user' => fractal()->item($user)->transformWith(new UserTransformer())->toArray(),
         ]);
     }
 }
