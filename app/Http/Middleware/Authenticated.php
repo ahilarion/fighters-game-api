@@ -18,8 +18,7 @@ class Authenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd(Auth::check());
-        if (!auth()->check()) {
+        if (!Auth::check()) {
             throw new UserNotAuthenticatedException();
         }
 
