@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Concerns\HasUuids;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * @method static create(array $array)
@@ -25,8 +25,8 @@ class Ability extends Model
         'intelligence',
     ];
 
-    public function characters(): BelongsToMany
+    public function character() : BelongsTo
     {
-        return $this->belongsToMany(Character::class);
+        return $this->belongsTo(Character::class);
     }
 }
