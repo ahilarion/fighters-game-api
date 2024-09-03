@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
+/**
+ * @method static where(string $string, mixed $class)
+ */
 class Classes extends Model
 {
     use HasFactory, HasUuids;
@@ -14,7 +17,13 @@ class Classes extends Model
     protected $fillable = [
         'name',
         'display_name',
-        'description',
+        'default_attack',
+        'default_defense',
+        'default_dodge',
+        'default_strength',
+        'default_dexterity',
+        'default_constitution',
+        'default_intelligence'
     ];
 
     public function characters(): BelongsToMany
