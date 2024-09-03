@@ -17,9 +17,8 @@ return new class extends Migration
             $table->string('name');
             $table->integer('level')->default(1);
             $table->integer('experience')->default(0);
-            $table->integer('health')->default(100);
             $table->foreignUuid('class_id')->constrained()->cascadeOnDelete();
-            $table->foreignUuid('ability_id')->constrained('abilities')->cascadeOnDelete();
+            $table->foreignUuid('ability_id')->constrained()->cascadeOnDelete();
             $table->timestamps();
         });
     }

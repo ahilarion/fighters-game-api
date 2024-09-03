@@ -10,12 +10,13 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 /**
  * @method static create(array $array)
  */
-class Abilitie extends Model
+class Ability extends Model
 {
     use HasFactory, HasUuids;
 
     protected $fillable = [
         'attack',
+        'health',
         'defense',
         'dodge',
         'strength',

@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CharacterStoreRequest;
 use App\Http\Requests\CharacterUpdateRequest;
-use App\Models\Abilitie;
+use App\Models\Ability;
 use App\Models\Character;
 use App\Models\Classes;
 use App\Transformers\CharacterTransformer;
@@ -61,7 +61,7 @@ class CharacterController extends Controller
             ], 404);
         }
 
-        $abilities = Abilitie::create([
+        $ability = Ability::create([
             'attack' => rand(1, $class->default_attack),
             'defense' => rand(1, $class->default_defense),
             'dodge' => rand(1, $class->default_dodge),
@@ -71,11 +71,10 @@ class CharacterController extends Controller
             'intelligence' => rand(1, $class->default_intelligence),
         ]);
 
-        $character = Character::create([
+        $character = $user->characters()->create([
             'name' => $request->name,
             'class_id' => $class->id,
-            'abilities_id' => $abilities->id,
-            'user_id' => $user->id,
+            'abilitie_id' => $ability->id,
         ]);
 
         return response([

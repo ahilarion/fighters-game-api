@@ -19,16 +19,6 @@ class Character extends Model
         'name',
         'level',
         'experience',
-        'attack',
-        'defense',
-        'dodge',
-        'strength',
-        'dexterity',
-        'constitution',
-        'intelligence',
-        'user_id',
-        'class_id',
-        'ability_id',
     ];
 
     public function user(): BelongsTo
@@ -41,8 +31,8 @@ class Character extends Model
         return $this->hasOne(Classes::class);
     }
 
-    public function abilities(): HasOne
+    public function ability(): HasOne
     {
-        return $this->hasOne(Abilitie::class);
+        return $this->hasOne(Ability::class);
     }
 }
