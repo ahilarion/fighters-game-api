@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Auth\AuthenticationException;
+use App\Exceptions\UserNotAuthenticatedException;
+use App\Http\Middleware\Authenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -16,13 +17,15 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
-        //
+        $middleware->alias([
+            'authenticated' => Authenticated::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions) {
-        $exceptions->render(function (AuthenticationException $exception) {
+        $exceptions->render(function (UserNotAuthenticatedException $exception) {
             return response([
                 'success' => false,
-                'message' => 'Unauthenticated'
+                'message' => 'User not authenticated'
             ], Response::HTTP_UNAUTHORIZED);
         });
 
