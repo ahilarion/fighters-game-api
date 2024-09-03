@@ -40,6 +40,7 @@ return Application::configure(basePath: dirname(__DIR__))
         });
 
         $exceptions->render(function (\Exception $exception) {
+            dd($exception);
             return response([
                 'success' => false,
                 'message' => 'An error occurred'
