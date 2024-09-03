@@ -71,10 +71,11 @@ class CharacterController extends Controller
             'intelligence' => rand(1, $class->default_intelligence),
         ]);
 
-        $character = $user->characters()->create([
+        $character = Character::create([
             'name' => $request->name,
+            'user_id' => $user->id,
             'class_id' => $class->id,
-            'abilitie_id' => $ability->id,
+            'ability_id' => $ability->id,
         ]);
 
         return response([
