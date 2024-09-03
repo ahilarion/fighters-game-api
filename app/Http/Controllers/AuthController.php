@@ -6,6 +6,7 @@ use App\Http\Requests\LoginRequest;
 use App\Http\Requests\RegisterRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class AuthController extends Controller
 {
@@ -19,6 +20,8 @@ class AuthController extends Controller
         $token = $user->createToken('token')->plainTextToken;
 
         return response([
+            'success' => true,
+            'message' => 'User created and logged in',
             'token' => $token,
             'user' => $user,
         ]);
@@ -28,8 +31,9 @@ class AuthController extends Controller
     {
         if (!auth()->attempt($request->only('username', 'password'))) {
             return response([
-                'error' => 'Invalid credentials',
-            ], 401);
+                'success' => false,
+                'message' => 'Invalid login details',
+            ], Response::HTTP_UNAUTHORIZED);
         }
 
         $user = auth()->user();
@@ -37,22 +41,31 @@ class AuthController extends Controller
         $token = $user->createToken('token')->plainTextToken;
 
         return response([
+            'success' => true,
+            'message' => 'Logged in',
             'token' => $token,
             'user' => $user,
         ]);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
         auth()->user()->tokens()->delete();
 
         return response([
+            'success' => true,
             'message' => 'Logged out',
         ]);
     }
 
-    public function me(Request $request)
+    public function me()
     {
-        return response(auth()->user());
+        $user = auth()->user();
+
+        return response([
+            'success' => true,
+            'message' => 'User data',
+            'user' => $user,
+        ]);
     }
 }
