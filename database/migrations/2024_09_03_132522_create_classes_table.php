@@ -15,7 +15,13 @@ return new class extends Migration
             $table->uuid('id')->primary();
             $table->string('name');
             $table->string('display_name');
-            $table->text('description');
+            $table->integer('default_attack')->default(0);
+            $table->integer('default_defense')->default(0);
+            $table->integer('default_dodge')->default(0);
+            $table->integer('default_strength')->default(0);
+            $table->integer('default_dexterity')->default(0);
+            $table->integer('default_constitution')->default(0);
+            $table->integer('default_intelligence')->default(0);
             $table->timestamps();
         });
     }

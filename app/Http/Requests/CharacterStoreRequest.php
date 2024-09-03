@@ -24,6 +24,7 @@ class CharacterStoreRequest extends FormRequest
     {
         return [
             'name' => ['required', 'string', 'max:255'],
+            'class' => ['required', 'string', 'max:255'],
         ];
     }
 }

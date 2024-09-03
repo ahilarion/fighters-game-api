@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\CharacterStoreRequest;
 use App\Http\Requests\CharacterUpdateRequest;
+use App\Models\Abilitie;
 use App\Models\Character;
+use App\Models\Classes;
 use App\Transformers\CharacterTransformer;
 use Illuminate\Http\Request;
 
@@ -43,14 +45,39 @@ class CharacterController extends Controller
     {
         $user = auth()->user();
 
-        $character = $user->characters()->create([
+        $class = Classes::where('name', $request->class)->first();
+
+        if (!$class) {
+            return response([
+                'success' => false,
+                'message' => 'Class not found',
+            ], 404);
+        }
+
+        $abilities = Abilitie::create([
+            'attack' => rand(0, $class->default_attack),
+            'defense' => rand(0, $class->default_defense),
+            'dodge' => rand(0, $class->default_dodge),
+            'strength' => rand(0, $class->default_strength),
+            'dexterity' => rand(0, $class->default_dexterity),
+            'constitution' => rand(0, $class->default_constitution),
+            'intelligence' => rand(0, $class->default_intelligence),
+        ]);
+
+        $character = Character::create([
             'name' => $request->name,
+            'class_id' => $class->id,
+            'abilities_id' => $abilities->id,
+            'user_id' => $user->id,
         ]);
 
         return response([
             'success' => true,
             'message' => 'Character created',
-            'character' => fractal()->item($character)->transformWith(new CharacterTransformer())->toArray(),
+            'character' => fractal()
+                ->item($character)
+                ->transformWith(new CharacterTransformer())
+                ->toArray(),
         ]);
     }
 
