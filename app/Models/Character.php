@@ -19,6 +19,9 @@ class Character extends Model
         'name',
         'level',
         'experience',
+        'class_id',
+        'ability_id',
+        'user_id',s
     ];
 
     public function user(): BelongsTo
