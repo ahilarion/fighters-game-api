@@ -5,6 +5,7 @@ namespace App\Http\Middleware;
 use App\Exceptions\UserNotAuthenticatedException;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class Authenticated
@@ -17,7 +18,7 @@ class Authenticated
      */
     public function handle(Request $request, Closure $next): Response
     {
-        dd(auth()->check());
+        dd(Auth::user());
         if (!auth()->check()) {
             throw new UserNotAuthenticatedException();
         }
